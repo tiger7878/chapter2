@@ -24,7 +24,7 @@
           p:driverClassName="com.mysql.jdbc.Driver"
           p:url="jdbc:mysql://localhost:3306/sampledb"
           p:username="test"
-          p:password="test"/>
+          p:password="123456"/>
 
     <!-- 配置Jdbc模板  -->
     <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate"
