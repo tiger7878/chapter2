@@ -1,7 +1,31 @@
-<!DOCTYPE web-app PUBLIC
- "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
- "http://java.sun.com/dtd/web-app_2_3.dtd" >
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5"
+         xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+	http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
 
-<web-app>
-  <display-name>Archetype Created Web Application</display-name>
+    <!--从类路径下加载spring配置文件，classpath关键字特指类路径下加载，多个配置文件使用逗号分隔-->
+    <context-param>
+      <param-name>contextConfigLocation</param-name>
+      <param-value>classpath:smart-context.xml</param-value>
+    </context-param>
+    <!--负责启动spring的监听器，该监听器在web容器启动时自动运行-->
+    <listener>
+      <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+
+    <!--Spring MVC的主控Servlet，在不指定配置文件路径时默认去找/WEB-INF/smart-servlet.xml文件 -->
+    <servlet>
+      <servlet-name>smart</servlet-name>
+      <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+      <load-on-startup>2</load-on-startup>
+    </servlet>
+    <!--Spring MVC处理的url，真正的静态页面用.htm加以区分-->
+    <servlet-mapping>
+      <servlet-name>smart</servlet-name>
+      <url-pattern>*.html</url-pattern>
+    </servlet-mapping>
+
+
 </web-app>
