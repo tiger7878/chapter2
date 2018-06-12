@@ -22,12 +22,13 @@ public class LoginController {
     private UserService userService;
 
     //登录界面
-    @RequestMapping(value = "/index.html")
+    @RequestMapping(value = "/index")
     public String loginPage(){
         return "login";
     }
 
     //处理登录逻辑
+    @RequestMapping(value = "/loginCheck")
     public ModelAndView loginCheck(HttpServletRequest request,LoginCommand loginCommand){
         boolean isValidUser=userService.hasMatchUser(loginCommand.getUserName(),loginCommand.getPassword());
         if (!isValidUser){
