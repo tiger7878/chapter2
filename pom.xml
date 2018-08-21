@@ -9,7 +9,7 @@
   <version>1.0-SNAPSHOT</version>
   <packaging>war</packaging>
 
-  <name>chapter2 Maven Webapp</name>
+  <name>bbs</name>
   <!-- FIXME change it to the project's website -->
   <url>http://www.example.com</url>
 
@@ -55,6 +55,20 @@
       <groupId>org.springframework</groupId>
       <artifactId>spring-webmvc</artifactId>
       <version>${spring.version}</version>
+    </dependency>
+
+    <!--jstl -->
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>jstl</artifactId>
+      <version>1.2</version>
+    </dependency>
+
+    <!-- c3p0 -->
+    <dependency>
+      <groupId>com.mchange</groupId>
+      <artifactId>c3p0</artifactId>
+      <version>0.9.5.2</version>
     </dependency>
 
     <!--数据库连接池-->
@@ -105,13 +119,26 @@
       <scope>test</scope>
     </dependency>
 
-
   </dependencies>
 
   <build>
     <finalName>chapter2</finalName>
 
     <plugins>
+      <!--tomcat插件-->
+      <plugin>
+        <groupId>org.apache.tomcat.maven</groupId>
+        <artifactId>tomcat7-maven-plugin</artifactId>
+        <version>2.2</version>
+        <configuration>
+          <!--注意此处的url 部署到本地tomcat7-->
+          <url>http://localhost:8080/manager/text</url>
+          <server>tomcat7</server> <!-- 此处的名字必须和setting.xml中配置的ID一致 -->
+          <path>/bbs</path>  <!-- 此处的名字是项目发布的工程名 -->
+          <!--jndi数据源文件的地址-->
+          <contextFile>src/main/webapp/WEB-INF/context.xml</contextFile>
+        </configuration>
+      </plugin>
 
       <!-- web应用服务器jetty插件 -->
       <plugin>
@@ -119,6 +146,11 @@
         <artifactId>maven-jetty-plugin</artifactId>
         <version>6.1.25</version>
         <configuration>
+          <webDefaultXml>jetty.xml</webDefaultXml>
+          <!--添加一个jetty的额外配置文件-->
+          <!--<jettyEnvXml>jetty.xml</jettyEnvXml>-->
+          <webAppSourceDirectory>src/main/webapp</webAppSourceDirectory>
+          <scanIntervalSeconds>0</scanIntervalSeconds>
           <connectors>
             <connector implementation="org.mortbay.jetty.nio.SelectChannelConnector">
               <!--默认端口是8080-->
