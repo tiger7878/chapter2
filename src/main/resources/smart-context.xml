@@ -22,6 +22,15 @@
     <!--扫描service类包-->
     <context:component-scan base-package="com.smart.service" />
 
+    <!--项目属性文件-->
+    <!--<context:property-placeholder location="classpath:properties/conf.properties" />-->
+    <!--<context:property-placeholder location="file:G:/Java/conf.properties" />-->
+    <!--JVM中-D启动参数-->
+    <context:property-placeholder location="#{systemProperties.CONF_FILE_PATH}"/>
+
+    <!--扫描配置文件包，交给spring容器维护-->
+    <context:component-scan base-package="com.smart.domain" />
+
     <!-- 配置数据源 -->
     <!--<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
         destroy-method="close"
@@ -30,7 +39,7 @@
           p:username="test"
           p:password="123456"/>-->
 
-    <!-- 引用jdni数据源-->
+    <!-- 引用jndi数据源-->
     <jee:jndi-lookup id="dataSource" jndi-name="java:comp/env/jdbc/myds"/>
 
     <!-- 配置Jdbc模板  -->

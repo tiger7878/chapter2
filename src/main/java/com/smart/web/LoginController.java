@@ -1,5 +1,6 @@
 package com.smart.web;
 
+import com.smart.domain.MySystemConf;
 import com.smart.domain.User;
 import com.smart.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,15 +22,31 @@ public class LoginController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private MySystemConf mySystemConf;
+
     //登录界面
     @RequestMapping(value = "/index")
     public String loginPage(){
+
+        //测试属性文件
+        System.out.println(mySystemConf);
+
+        System.out.println(mySystemConf.getFileUploadServerUrl());
+        System.out.println(mySystemConf.getFileRelativePath());
+        System.out.println(mySystemConf.getFileAbsolutePath());
+        System.out.println(mySystemConf.getHelpDocRelativePath());
+        System.out.println(mySystemConf.getPayeeRelativePath());
+
         return "login";
     }
 
     //处理登录逻辑
     @RequestMapping(value = "/loginCheck")
     public ModelAndView loginCheck(HttpServletRequest request,LoginCommand loginCommand){
+
+        System.out.println(mySystemConf);
+
         boolean isValidUser=userService.hasMatchUser(loginCommand.getUserName(),loginCommand.getPassword());
         if (!isValidUser){
             //参数一：试图的逻辑名称，参数二：数据模型的名称，参数三：数据模型对象

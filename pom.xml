@@ -134,9 +134,15 @@
           <!--注意此处的url 部署到本地tomcat7-->
           <url>http://localhost:8080/manager/text</url>
           <server>tomcat7</server> <!-- 此处的名字必须和setting.xml中配置的ID一致 -->
-          <path>/bbs</path>  <!-- 此处的名字是项目发布的工程名 -->
+          <path>/chapter2</path>  <!-- 此处的名字是项目发布的工程名 -->
           <!--jndi数据源文件的地址-->
           <contextFile>src/main/webapp/WEB-INF/context.xml</contextFile>
+
+          <!--在jvm中配置web项目属性文件-->
+          <systemProperties>
+            <CONF_FILE_PATH>classpath:properties/conf.properties</CONF_FILE_PATH>
+          </systemProperties>
+
         </configuration>
       </plugin>
 
